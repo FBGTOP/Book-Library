@@ -1,0 +1,62 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    background-color: #02b6c4;
+    align-items: center;
+}
+
+button{
+    background-color:  #3e6a80 ;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    color: #f0e6d3;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+    box-shadow: 0 5px #999;
+    transition: all 0.2s ease;
+}
+
+button:active {
+  background-color: #0a1743;
+  box-shadow: 0 0 2px #666;
+  transform: translateY(2px);
+}
+
+.headLogo, .headMenu{
+    width: 15%;
+    text-align: center;
+}
+
+.bookContainer{
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 50px;
+    ;
+}
+
+.navBar{
+    display: flex;
+    justify-content: center;
+    background-color: #728e9f;
+    padding: 10px 0px;
+    
+}
+
+.book{
+    width: 150px;
+    height: 200px;
+    background-color: #f0e6d3 ;
+}
+
+
