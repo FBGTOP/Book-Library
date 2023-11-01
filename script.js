@@ -20,6 +20,20 @@ function display(array){
     });
 }
 
+const bookForm = document.querySelector("dialog");
+const showAddBook = document.getElementById("addBookBtn");
+const closeAddBook = document.querySelector("dialog button")
+
+showAddBook.addEventListener("click", () => {
+    bookForm.showModal();
+}
+)
+
+closeAddBook.addEventListener("click", () => {
+    bookForm.close();
+})
+
+
 
 addBook("The Hobbit");
 addBook("Private Peaceful")
