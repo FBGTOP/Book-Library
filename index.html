@@ -13,20 +13,29 @@
         <div class="headBanner">
             <img src="./images/banner.png" alt="Little Bookworms banner" height="150px" length=auto>       
         </div>
-        <div class="headMenu">Menu</div>
+        <nav class="headMenu">Menu</nav>
     </header>
-    <div class="navBar">
-        <button type="submit" id="addBookBtn">+</button>   
-    </div>
-    <div class="bookContainer">
-        
-    </div>
-    <dialog>
-        <form>
-            <input>
-            <button>
-                Submit
-            </button>
-        </form>
-    </dialog>
+    <main>
+        <div class="navBar">
+            <button type="submit" id="addBookBtn">+</button>   
+        </div>
+        <div class="bookContainer">
+            
+        </div>
+        <dialog>
+            <form>
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+                <label for="author">Author</label>
+                <input type="text" id="author" name="author" required>
+                <label for="pages">Number of pages</label>
+                <input type="text" id="pages" name="pages" required>
+                <label for="rating">Rating</label>
+                <input type="number" id="rating" name="rating" required min="0" max="5">
+                <button type="button" id="submit">
+                    Add
+                </button>
+            </form>
+        </dialog>
+    </main>
 </html>
