@@ -23,7 +23,7 @@ button{
     display: inline-block;
     font-size: 30px;
     box-shadow: 0 5px #999;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 button:active {
@@ -32,9 +32,34 @@ button:active {
   transform: translateY(2px);
 }
 
+dialog{
+    width: 300px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(90deg, rgba(11,24,67,1) 0%, rgba(6,179,197,1) 50%, rgba(162,243,251,1) 100%);
+    color: white;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
 .headLogo, .headMenu{
     width: 15%;
     text-align: center;
+}
+
+input{
+    margin-bottom: 10px;
+    height: 30px;
+}
+
+dialog button{
+    align-self: center;
 }
 
 .bookContainer{
