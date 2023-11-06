@@ -1,17 +1,32 @@
 let library = [];
 
-function Book(title, author, pages, rating) {
+function Book(title, author, pages, rating, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.rating = rating;
+    this.read = read;
 }
 
-function addBook(title, author, pages, rating) {
-    library.push(new Book (title, author, pages, rating));
-    display(library);
+//setup function to set read status
+Book.prototype.toggleread = function(book) {
+    book.read = !book.read;
+    const bookCard = document.querySelector(`#${book.title}`);
+    bookCard.parentNode.classList.toggle("read");    
 }
 
+//add book and update main container with new book card
+function addBook(book) {
+    library.push(book);
+    let setRead = false;
+    if(book.read){
+        setRead = book.read;
+        console.log(setRead);
+    }
+    display(library, setRead);
+}
+
+//remove book from array and main container.  If not found, do nothing
 function removeBook(target){
     const book = document.getElementById(`${target}`).parentNode;
     book.remove();
@@ -22,23 +37,36 @@ function removeBook(target){
     library.splice(index, 1);
 }
 
-function display(bookArray){
+//Add books to the main container
+function display(bookArray, readStatus){
 
     const container = document.querySelector(".bookContainer");
-    const book = document.createElement("div");
+    const bookCard = document.createElement("div");
     const bookTitle = document.createElement("div");
     const bookAuthor = document.createElement("div");
     const bookPages = document.createElement("div");
     const bookRating = document.createElement("div");
     const removeBtn = document.createElement ("button");
     const readBtn = document.createElement ("button")
+
+
     removeBtn.addEventListener("click", (event)=>{
         removeBook(event.target.id);
     });
 
+    //Loop through the array and find the book with same title as container
+    //call to the book function to mark the book as read
+    readBtn.addEventListener("click", (event) =>{
+        library.forEach(book => {
+            if (book.title === event.target.id){
+                book.toggleread(book);
+            };
+        });
+    });
+
     bookArray.forEach(element => {
 
-        book.classList.add("book");
+        bookCard.classList.add("book");
         bookTitle.classList.add("bookTitle");
         bookAuthor.classList.add('bookAuthor');
         bookPages.classList.add("bookPages");
@@ -46,7 +74,11 @@ function display(bookArray){
         removeBtn.classList.add("removeBtn");
         readBtn.classList.add("readBtn");
         removeBtn.setAttribute("id", `${element.title}`);
+        readBtn.setAttribute("id",`${element.title}`);
 
+        if(readStatus){
+            bookCard.classList.add("read");
+        }
 
         bookTitle.textContent = `${element.title}`;
         bookAuthor.textContent = `${element.author}`;
@@ -54,32 +86,38 @@ function display(bookArray){
         bookRating.textContent = `${element.rating}`;
         
 
-        book.append(bookTitle, bookAuthor, bookPages,bookRating, removeBtn, readBtn);
-        container.append(book);
+        bookCard.append(bookTitle, bookAuthor, bookPages,bookRating, removeBtn, readBtn);
+        container.append(bookCard);
     });
 
 }
 
-//Dialog box activation
+//Dialog box activation from add book button on main page
 const bookForm = document.querySelector("dialog");
 const showAddBook = document.getElementById("addBookBtn");
-const closeAddBook = document.querySelector("dialog button")
 
 showAddBook.addEventListener("click", () => {
     bookForm.showModal();
 }
 )
 
-//Collect form data to object
 
+//Collect form data to object and clear form
 const addTitle = document.querySelector("#title");
 const addAuthor = document.querySelector("#author");
 const addPages = document.querySelector("#pages");
 const addRating = document.querySelector("#rating");
-const bookSubmit = document.querySelector("#submit")
+const addStatus = document.querySelector("#slider");
+const bookSubmit = document.querySelector("#submit");
 
-bookSubmit.addEventListener('click', (event) => {
-    addBook(addTitle.value, addAuthor.value, addPages.value, addRating.value);
+bookSubmit.addEventListener('click', () => {
+    // addBook(addTitle.value, addAuthor.value, addPages.value, addRating.value);
+    addBook(new Book(addTitle.value,addAuthor.value,addPages.value,addRating.value, addStatus.checked));
+    addTitle.value = "";
+    addAuthor.value = "";
+    addPages.value = "";
+    addRating.value = "";
+    addStatus.checked = false;
     bookForm.close();
 });
 
