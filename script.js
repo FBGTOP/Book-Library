@@ -8,7 +8,7 @@ function Book(title, author, pages, rating, read) {
     this.read = read;
 }
 
-//setup function to set read status
+//setup Book protoype method to set read status
 Book.prototype.toggleread = function(book) {
     book.read = !book.read;
     const bookCard = document.querySelector(`#${book.title}`);
@@ -47,7 +47,11 @@ function display(bookArray, readStatus){
     const bookPages = document.createElement("div");
     const bookRating = document.createElement("div");
     const removeBtn = document.createElement ("button");
-    const readBtn = document.createElement ("button")
+    const readBtn = document.createElement ("input");
+    const readBtnLabel = document.createElement ("label");
+    const readBtnSpan = document.createElement ("span");
+    const labelRead = document.createTextNode ("Not Read");
+    const labelNotRead = document.createTextNode ("Read");
 
 
     removeBtn.addEventListener("click", (event)=>{
@@ -72,12 +76,18 @@ function display(bookArray, readStatus){
         bookPages.classList.add("bookPages");
         bookRating.classList.add("bookRating");
         removeBtn.classList.add("removeBtn");
-        readBtn.classList.add("readBtn");
         removeBtn.setAttribute("id", `${element.title}`);
+        readBtn.classList.add("readBtn");
         readBtn.setAttribute("id",`${element.title}`);
+        readBtn.setAttribute("type", "checkbox");
+        readBtn.setAttribute("name", "slider");
+        readBtnLabel.setAttribute("for", "slider");
+        readBtnSpan.classList.add("slider")
+
 
         if(readStatus){
             bookCard.classList.add("read");
+            readBtn.checked = true;
         }
 
         bookTitle.textContent = `${element.title}`;
@@ -85,8 +95,11 @@ function display(bookArray, readStatus){
         bookPages.textContent = `${element.pages}`;
         bookRating.textContent = `${element.rating}`;
         
-
-        bookCard.append(bookTitle, bookAuthor, bookPages,bookRating, removeBtn, readBtn);
+        readBtnLabel.append(labelRead);
+        readBtnLabel.append(readBtn);
+        readBtnLabel.append(readBtnSpan);
+        readBtnLabel.append(labelNotRead);
+        bookCard.append(bookTitle, bookAuthor, bookPages,bookRating, removeBtn, readBtnLabel);
         container.append(bookCard);
     });
 
@@ -121,3 +134,5 @@ bookSubmit.addEventListener('click', () => {
     bookForm.close();
 });
 
+addBook(new Book("Title", "Author", 1, 1, true));
+addBook(new Book("Title2", "Author", 1, 1, false));
