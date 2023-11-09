@@ -21,7 +21,6 @@ function addBook(book) {
     let setRead = false;
     if(book.read){
         setRead = book.read;
-        console.log(setRead);
     }
     display(library, setRead);
 }
@@ -49,9 +48,6 @@ function display(bookArray, readStatus){
     const removeBtn = document.createElement ("button");
     const readBtn = document.createElement ("input");
     const readBtnLabel = document.createElement ("label");
-    const readBtnSpan = document.createElement ("span");
-    const labelRead = document.createTextNode ("Not Read");
-    const labelNotRead = document.createTextNode ("Read");
 
 
     removeBtn.addEventListener("click", (event)=>{
@@ -77,12 +73,13 @@ function display(bookArray, readStatus){
         bookRating.classList.add("bookRating");
         removeBtn.classList.add("removeBtn");
         removeBtn.setAttribute("id", `${element.title}`);
-        readBtn.classList.add("readBtn");
+        removeBtn.textContent = "Remove book";
+        readBtn.classList.add("toggle");
         readBtn.setAttribute("id",`${element.title}`);
         readBtn.setAttribute("type", "checkbox");
         readBtn.setAttribute("name", "slider");
-        readBtnLabel.setAttribute("for", "slider");
-        readBtnSpan.classList.add("slider")
+        readBtnLabel.classList.add("switch");
+        readBtnLabel.setAttribute("for", `${element.title}`);
 
 
         if(readStatus){
@@ -94,12 +91,9 @@ function display(bookArray, readStatus){
         bookAuthor.textContent = `${element.author}`;
         bookPages.textContent = `${element.pages}`;
         bookRating.textContent = `${element.rating}`;
+        readBtnLabel.textContent = "Read?"
         
-        readBtnLabel.append(labelRead);
-        readBtnLabel.append(readBtn);
-        readBtnLabel.append(readBtnSpan);
-        readBtnLabel.append(labelNotRead);
-        bookCard.append(bookTitle, bookAuthor, bookPages,bookRating, removeBtn, readBtnLabel);
+        bookCard.append(bookTitle, bookAuthor, bookPages,bookRating, readBtn, readBtnLabel, removeBtn);
         container.append(bookCard);
     });
 
@@ -122,6 +116,16 @@ const addPages = document.querySelector("#pages");
 const addRating = document.querySelector("#rating");
 const addStatus = document.querySelector("#slider");
 const bookSubmit = document.querySelector("#submit");
+const bookCancel = document.querySelector("#cancel");
+
+bookCancel.addEventListener("click", () => {
+    addTitle.value = "";
+    addAuthor.value = "";
+    addPages.value = "";
+    addRating.value = "";
+    addStatus.checked = false;
+    bookForm.close()
+})
 
 bookSubmit.addEventListener('click', () => {
     // addBook(addTitle.value, addAuthor.value, addPages.value, addRating.value);
